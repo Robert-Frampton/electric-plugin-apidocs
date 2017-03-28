@@ -53,16 +53,10 @@ module.exports = function(options) {
 
 	gulp.task(taskPrefix + 'api:layouts', function() {
 		var streams = _.map(options.apiConfig.project.refs, function(ref) {
-			var baseTemplateFilter = filter(path.join(options.pathSrc, 'layouts/base.soy'), {
-				restore: true
-			});
-
 			return gulp.src(path.join(options.pathSrc, 'layouts/*.soy'))
-				.pipe(baseTemplateFilter)
 				.pipe(baseInject(_.assign({}, options, {
 					bundleSrc: util.synthSrc(path.join(process.cwd(), pathDest, 'js/api-bundle.js'))
 				})))
-				.pipe(baseTemplateFilter.restore)
 				.pipe(gulp.dest(path.join(TEMP_DIR, ref, 'layouts')));
 		});
 
