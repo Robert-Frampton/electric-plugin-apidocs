@@ -1,0 +1,24 @@
+{
+  "name": "electric-plugin-apidocs",
+  "version": "1.0.0",
+  "description": "Plugin for Electric that generates api docs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robert-Frampton/electric-plugin-apidocs.git"
+  },
+  "keywords": [
+    "electric",
+    "apidocs",
+    "plugin"
+  ],
+  "author": "Rob Frampton <rob.g.frampton@gmail.com> (https://github.com/Robert-Frampton)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Robert-Frampton/electric-plugin-apidocs/issues"
+  },
+  "homepage": "https://github.com/Robert-Frampton/electric-plugin-apidocs#readme"
+}
