@@ -100,7 +100,7 @@ module.exports = function(options) {
 	});
 
 	gulp.task(taskPrefix + 'api:prep:metal', function() {
-		return gulp.src(path.join(__dirname, '../api/**/*'))
+		return gulp.src(path.join(__dirname, 'src/**/*'))
 			.pipe(gulp.dest(path.join(TEMP_DIR, 'src')));
 	});
 
@@ -122,7 +122,7 @@ module.exports = function(options) {
 	});
 
 	gulp.task(taskPrefix + 'api:templates', function() {
-		var stream = gulp.src(path.join(__dirname, '../api/*.soy'))
+		var stream = gulp.src(path.join(__dirname, 'src/*.soy'))
 
 		options.apiConfig.project.refs.forEach(function(ref) {
 			stream.pipe(gulp.dest(path.join(TEMP_DIR, ref, 'templates')));
