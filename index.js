@@ -24,6 +24,8 @@ module.exports = function(options) {
 	var taskPrefix = options.taskPrefix;
 	var util = options.util;
 
+	apiConfig.layout = apiConfig.layout || 'main';
+
 	gulp.task(taskPrefix + 'api', function(cb) {
 		runSequence(
 			[
@@ -50,7 +52,7 @@ module.exports = function(options) {
 	});
 
 	gulp.task(taskPrefix + 'api:layouts', function() {
-		var streams = _.map(options.apiConfig.project.refs, function(ref) {
+		var streams = _.map(apiConfig.project.refs, function(ref) {
 			return gulp.src(path.join(options.pathSrc, 'layouts/*.soy'))
 				.pipe(baseInject(_.assign({}, options, {
 					bundleSrc: util.synthSrc(path.join(process.cwd(), pathDest, 'js/api-bundle.js'))
@@ -63,11 +65,11 @@ module.exports = function(options) {
 
 	gulp.task(taskPrefix + 'api:metal', function() {
 		return gulp.src(path.join(__dirname, 'build/*'))
-			.pipe(gulp.dest(path.join(options.pathDest, 'js')));
+			.pipe(gulp.dest(path.join(pathDest, 'js')));
 	});
 
 	gulp.task(taskPrefix + 'api:prep', function() {
-		var project = options.apiConfig.project;
+		var project = apiConfig.project;
 
 		var streams = _.map(project.refs, function(ref) {
 			var refProject = _.assign({}, project, {
@@ -88,13 +90,13 @@ module.exports = function(options) {
 
 	gulp.task(taskPrefix + 'api:search-data', function() {
 		return gulp.src(path.join(TEMP_DIR, '**/API.json'))
-			.pipe(gulp.dest(path.join(options.pathDest, 'api')))
+			.pipe(gulp.dest(path.join(pathDest, 'api')))
 	});
 
 	gulp.task(taskPrefix + 'api:templates', function() {
 		var stream = gulp.src(path.join(__dirname, 'src/*.soy'))
 
-		options.apiConfig.project.refs.forEach(function(ref) {
+		apiConfig.project.refs.forEach(function(ref) {
 			stream.pipe(gulp.dest(path.join(TEMP_DIR, ref, 'templates')));
 		});
 
@@ -102,8 +104,8 @@ module.exports = function(options) {
 	});
 
 	gulp.task(taskPrefix + 'api:render', function(cb) {
-		var siteData = require(path.join(process.cwd(), options.pathDest, 'site.json'));
-		var project = options.apiConfig.project;
+		var siteData = require(path.join(process.cwd(), pathDest, 'site.json'));
+		var project = apiConfig.project;
 
 		siteData.project = project;
 
@@ -159,7 +161,7 @@ module.exports = function(options) {
 						this.emit('end');
 					})
 					.pipe(htmlFilter)
-					.pipe(gulp.dest(path.join(options.pathDest, 'api', ref)))
+					.pipe(gulp.dest(path.join(pathDest, 'api', ref)))
 					.on('end', end);
 			}
 		});

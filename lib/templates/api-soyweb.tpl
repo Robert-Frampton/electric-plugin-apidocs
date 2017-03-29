@@ -6,7 +6,7 @@
 {template .soyweb}
 	{call base.render data="all"}
 		{param content kind="html"}
-			{call main.render data="all"}
+			{call <%= layout %>.render data="all"}
 				{param content kind="html"}
 					{call ElectricApi.render data="all" /}
 				{/param}
