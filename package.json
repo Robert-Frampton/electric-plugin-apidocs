@@ -4,8 +4,6 @@
   "description": "Plugin for Electric that generates api docs.",
   "main": "index.js",
   "scripts": {
-    "build": "metal build --bundleFileName api-bundle.js",
-    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -33,10 +31,5 @@
     "lodash": "^4.17.4",
     "stream-series": "^0.1.1",
     "through2": "^2.0.3"
-  },
-  "devDependencies": {
-    "metal-ajax": "^2.0.3",
-    "metal-autocomplete": "^2.1.0",
-    "metal-cli": "^2.1.2"
   }
 }

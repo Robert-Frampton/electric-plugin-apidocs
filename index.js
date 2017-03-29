@@ -54,9 +54,7 @@ module.exports = function(options) {
 	gulp.task(taskPrefix + 'api:layouts', function() {
 		var streams = _.map(apiConfig.project.refs, function(ref) {
 			return gulp.src(path.join(options.pathSrc, 'layouts/*.soy'))
-				.pipe(baseInject(_.assign({}, options, {
-					bundleSrc: util.synthSrc(path.join(process.cwd(), pathDest, 'js/api-bundle.js'))
-				})))
+				.pipe(baseInject(_.assign({}, options)))
 				.pipe(gulp.dest(path.join(TEMP_DIR, ref, 'layouts')));
 		});
 

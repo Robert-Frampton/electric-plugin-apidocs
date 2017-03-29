@@ -34,6 +34,24 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		metal.dom.delegate(document.getElementById('entryFilter'), 'change', 'input', function(event) {lb}
+			var checked = event.target.checked;
+			var name = event.target.name;
+
+			var entities = document.querySelectorAll('[data-access="' + name + '"]');
+
+			for (i = 0; i < entities.length; i++) {lb}
+				if (checked) {lb}
+					entities[i].style.display = null;
+				{rb}
+				else {lb}
+					entities[i].style.display = 'none';
+				{rb}
+			{rb}
+		{rb});
+	</script>
 {/template}
 
 /**
@@ -81,53 +99,50 @@
 
 /**
  * @param entityData
- * @param filter
  * @param project
  */
 {template .entity}
-	{if not $entityData.access or $filter[$entityData.access]}
-		<section class="card entity" data-access="{$entityData.access ? $entityData.access : 'public'}" id="{$entityData.name}">
-			{call .entityHeader data="all" /}
+	<section class="card entity" data-access="{$entityData.access ? $entityData.access : 'public'}" id="{$entityData.name}">
+		{call .entityHeader data="all" /}
 
-			{if $entityData.augments}
-				{call .augments}
-					{param augments: $entityData.augments /}
+		{if $entityData.augments}
+			{call .augments}
+				{param augments: $entityData.augments /}
+			{/call}
+		{/if}
+
+		{if $entityData.description}
+			<div class="entity-description">
+				{call .description}
+					{param description: $entityData.description /}
 				{/call}
-			{/if}
+			</div>
+		{/if}
 
-			{if $entityData.description}
-				<div class="entity-description">
-					{call .description}
-						{param description: $entityData.description /}
-					{/call}
-				</div>
-			{/if}
+		{if $entityData.default}
+			{call .default}
+				{param default: $entityData.default /}
+			{/call}
+		{/if}
 
-			{if $entityData.default}
-				{call .default}
-					{param default: $entityData.default /}
-				{/call}
-			{/if}
+		{if $entityData.params}
+			{call .params}
+				{param params: $entityData.params /}
+			{/call}
+		{/if}
 
-			{if $entityData.params}
-				{call .params}
-					{param params: $entityData.params /}
-				{/call}
-			{/if}
+		{if $entityData.returns}
+			{call .returns}
+				{param returns: $entityData.returns /}
+			{/call}
+		{/if}
 
-			{if $entityData.returns}
-				{call .returns}
-					{param returns: $entityData.returns /}
-				{/call}
-			{/if}
-
-			{if $entityData.members}
-				{call .members data="all"}
-					{param members: $entityData.members /}
-				{/call}
-			{/if}
-		</section>
-	{/if}
+		{if $entityData.members}
+			{call .members data="all"}
+				{param members: $entityData.members /}
+			{/call}
+		{/if}
+	</section>
 {/template}
 
 /**
