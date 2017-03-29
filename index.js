@@ -2,8 +2,6 @@
 
 var _ = require('lodash');
 var async = require('async');
-var buildGlobals = require('metal-tools-build-globals/lib/pipelines/buildGlobals');
-var compileSoy = require('metal-tools-soy/lib/pipelines/compileSoy');
 var data = require('gulp-data');
 var documentation = require('gulp-documentation');
 var filter = require('gulp-filter');
@@ -63,13 +61,8 @@ module.exports = function(options) {
 		return streamSeries.apply(this, streams);
 	});
 
-	gulp.task(taskPrefix + 'api:metal', [taskPrefix + 'api:soy:render'], function() {
-		return gulp.src(path.join(TEMP_DIR, 'src/**/*.js'))
-			.pipe(buildGlobals({
-				bundleFileName: 'api-bundle.js'
-			}).on('error', function(err) {
-				gutil.log(err);
-			}))
+	gulp.task(taskPrefix + 'api:metal', function() {
+		return gulp.src(path.join(__dirname, 'build/*'))
 			.pipe(gulp.dest(path.join(options.pathDest, 'js')));
 	});
 
@@ -91,23 +84,6 @@ module.exports = function(options) {
 		});
 
 		return streamSeries.apply(this, streams);
-	});
-
-	gulp.task(taskPrefix + 'api:prep:metal', function() {
-		return gulp.src(path.join(__dirname, 'src/**/*'))
-			.pipe(gulp.dest(path.join(TEMP_DIR, 'src')));
-	});
-
-	gulp.task(taskPrefix + 'api:soy:render', [taskPrefix + 'api:prep:metal'], function() {
-		var apiSoyDir = path.join(__dirname, '../api');
-
-		return gulp.src(path.join(TEMP_DIR, 'src/**/*.soy'))
-			.pipe(compileSoy({
-				soyDeps: 'node_modules/+(metal)*/src/**/*.soy'
-			}).on('error', function(err) {
-				gutil.log(err);
-			}))
-			.pipe(gulp.dest(path.join(TEMP_DIR, 'src')));
 	});
 
 	gulp.task(taskPrefix + 'api:search-data', function() {
