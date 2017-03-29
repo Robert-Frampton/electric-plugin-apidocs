@@ -40,17 +40,6 @@
 				{rb},
 				input: document.querySelector('input[name="query"]')
 			{rb});
-
-			var serialized = JSON.parse({$serialized});
-
-			if (serialized.entityData && serialized.entityData.name) {lb}
-				metal.Component.render(metal.ElectricApiEntities, {lb}
-					element: '#entityContainer',
-					entityData: serialized.entityData,
-					filter: serialized.filter,
-					project: serialized.project
-				{rb});
-			{rb}
 		</script>
 	</div>
 {/template}
