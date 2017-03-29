@@ -1,6 +1,6 @@
 {
   "name": "electric-plugin-apidocs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Plugin for Electric that generates api docs.",
   "main": "index.js",
   "scripts": {
