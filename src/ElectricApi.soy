@@ -245,14 +245,6 @@
 {template .navigation}
 	<div class="sidebar-search">
 		<div class="form-group">
-			<select class="form-control" onchange="location = this.value;">
-				{foreach $ref in $project.refs}
-					<option value="/api/{$ref}" {if $ref == $project.ref}selected{/if}>{$ref}</option>
-				{/foreach}
-			</select>
-		</div>
-
-		<div class="form-group">
 			<input autocomplete="off" class="form-control" name="query" placeholder="Search...">
 		</div>
 	</div>
