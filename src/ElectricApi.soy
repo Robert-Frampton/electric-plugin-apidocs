@@ -17,6 +17,9 @@
 		<div class="sidebar-offset">
 			{call topbar.render data="all"}
 				{param elementClasses: 'topbar-docs-main' /}
+				{param subheader kind="html"}
+					{call .versionDropdown data="all" /}
+				{/param}
 			{/call}
 
 			<div class="container-hybrid docs-home-top">
@@ -191,14 +194,30 @@
 {/template}
 
 /**
- * @param type
+ * @param project
  */
-{template .type}
-	<span>
-		{if $type.expression}
-			{$type.expression.name}
-		{else}
-			{$type.name}
-		{/if}
-	</span>
+{template .versionDropdown}
+	<div class="dropdown version-dropdown">
+		<a class="btn btn-link">{$project.ref}<span class="icon-12-arrow-down-short"></span></a>
+
+		<ul class="dropdown-menu">
+			{foreach $ref in $project.refs}
+				<li><a href="/api/{$ref}">{$ref}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+
+	<script>
+		var dropdown = document.querySelector('.version-dropdown');
+
+		metal.dom.delegate(dropdown, 'click', '.btn', function(event) {lb}
+			metal.dom.toggleClasses(dropdown, 'open');
+		{rb});
+
+		metal.dom.on(document, 'click', function(event) {lb}
+			if (!dropdown.contains(event.target)) {lb}
+				metal.dom.removeClasses(dropdown, 'open');
+			{rb}
+		{rb});
+	</script>
 {/template}
