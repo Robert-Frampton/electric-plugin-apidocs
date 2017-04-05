@@ -15,6 +15,10 @@
 		</nav>
 
 		<div class="sidebar-offset">
+			{call topbar.render data="all"}
+				{param elementClasses: 'topbar-docs-main' /}
+			{/call}
+
 			<div class="container-hybrid docs-home-top">
 				<div class="entity-container" id="entityContainer">
 					{if $entityData and $entityData.name}
